@@ -40,6 +40,16 @@ export const getQuiz = async (req, res) => {
     }
 }
 
+export const listAllQuizCategory = async (req, res) => {
+    try {
+        const data = await QuizSchema.find();
+        const distinctCategories = [...new Set(data.map(el => el.category))];
+        res.json(distinctCategories);
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+}
+
 export const getQuizByCategory = async (req, res) => {
     try {
         const data = await QuizSchema.find({
